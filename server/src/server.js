@@ -6,7 +6,14 @@ import ConnectDb from "./lib/db.js";
 
 const app = express();
 
+//Middlewares
 app.use(express.json());
+app.use(
+  cors({
+    origin: ENV.CLIENT_URL,
+    credentials: true, // Credentials true meaning -> server allows a browser to have cookies
+  }),
+);
 
 const __dirname = path.resolve();
 
@@ -19,6 +26,8 @@ app.get("/health", (req, res) => {
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
 
+  //Any other Routes then the mentioned above in the Backend App should take the user to frontend (react)
+  // In the single domain we can access both react app and backend app with this
   app.get("/{*any}", (req, res) => {
     res.sendFile(path.join(__dirname, "../client", "dist", "index.html"));
   });
