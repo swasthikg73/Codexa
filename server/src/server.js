@@ -1,8 +1,10 @@
 import { ENV } from "./lib/env.js";
 import express from "express";
+import { serve } from "inngest/express";
 import cors from "cors";
 import path from "path";
 import ConnectDb from "./lib/db.js";
+import { inngest, functions } from "./lib/inngest.js";
 
 const app = express();
 
@@ -11,9 +13,11 @@ app.use(express.json());
 app.use(
   cors({
     origin: ENV.CLIENT_URL,
-    credentials: true, // Credentials true meaning -> server allows a browser to have cookies
+    credentials: true, // Credentials true meaning -> server allows a browser to have cookies on request
   }),
 );
+
+app.use("/api/inngest", serve({ client: inngest, functions }));
 
 const __dirname = path.resolve();
 

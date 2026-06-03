@@ -15,7 +15,7 @@ function App() {
           <SignInButton mode="modal">
             <button>Sign In</button>
           </SignInButton>
-          <SignUpButton />
+          {/* <SignUpButton /> */}
         </Show>
         <Show when="signed-in">
           <UserButton />
