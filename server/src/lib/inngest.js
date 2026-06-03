@@ -7,8 +7,10 @@ export const inngest = new Inngest({ id: "Codexa" });
 // Create an empty array where we'll export future Inngest functions
 
 const syncUser = inngest.createFunction(
-  { id: "syncUser" },
-  { event: "clerk/user.created" },
+  {
+    id: "syncUser",
+    triggers: { event: "clerk/user.created" },
+  },
   async ({ event }) => {
     await ConnectDb();
 
@@ -26,8 +28,7 @@ const syncUser = inngest.createFunction(
 );
 
 const deleteUserFromDB = inngest.createFunction(
-  { id: "deleteUser" },
-  { event: "clerk/user.deleted" },
+  { id: "deleteUser", triggers: { event: "clerk/user.deleted" } },
   async ({ event }) => {
     await ConnectDb();
 
