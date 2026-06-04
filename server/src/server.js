@@ -7,6 +7,7 @@ import ConnectDb from "./lib/db.js";
 import { inngest, functions } from "./lib/inngest.js";
 import { clerkMiddleware } from "@clerk/express";
 import { protectRoute } from "./middleware/protectRoute.js";
+import chatRouter from "./routes/chatRoute.js";
 
 const app = express();
 const __dirname = path.resolve();
@@ -33,6 +34,8 @@ app.get("/health", (req, res) => {
 //     message: "App is running up ",
 //   });
 // });
+
+app.use("/api/chat", chatRouter);
 
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
