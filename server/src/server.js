@@ -5,8 +5,11 @@ import cors from "cors";
 import path from "path";
 import ConnectDb from "./lib/db.js";
 import { inngest, functions } from "./lib/inngest.js";
+import { clerkMiddleware } from "@clerk/express";
+import { protectRoute } from "./middleware/protectRoute.js";
 
 const app = express();
+const __dirname = path.resolve();
 
 //Middlewares
 app.use(express.json());
@@ -16,16 +19,20 @@ app.use(
     credentials: true, // Credentials true meaning -> server allows a browser to have cookies on request
   }),
 );
-
 app.use("/api/inngest", serve({ client: inngest, functions }));
-
-const __dirname = path.resolve();
+app.use(clerkMiddleware()); // This adds auth field to the req object:  req.auth()
 
 app.get("/health", (req, res) => {
   res.status(200).json({
     message: "App is running up ",
   });
 });
+
+// app.get("/video", protectRoute, (req, res) => {
+//   res.status(200).json({
+//     message: "App is running up ",
+//   });
+// });
 
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));

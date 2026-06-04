@@ -6,7 +6,6 @@ import { deleteStreamUser, upsertStreamUser } from "./stream.js";
 export const inngest = new Inngest({ id: "Codexa" });
 
 // Create an empty array where we'll export future Inngest functions
-
 const syncUser = inngest.createFunction(
   {
     id: "syncUser",
@@ -25,7 +24,6 @@ const syncUser = inngest.createFunction(
       profileImage: image_url,
     };
     await User.create(newUser);
-
     await upsertStreamUser({
       id: newUser.clerkId.toString(),
       name: newUser.name,
