@@ -4,8 +4,6 @@ import { ENV } from "./env.js";
 const apiKey = ENV.STREAM_API_KEY;
 const secretKey = ENV.STREAM_SECRET_KEY;
 
-console.log("Strwam file called        ");
-
 if (!(apiKey || secretKey)) {
   console.error("STREAM API key or Secret key is missing");
 }
