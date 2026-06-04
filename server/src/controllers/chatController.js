@@ -8,8 +8,8 @@ export const getStreamToken = async (req, res) => {
     res.status(200).json({
       token,
       userId: req.user.clerkId,
-      userName: req.username,
-      userImage: req.user.image,
+      username: req.user.username,
+      profileImage: req.user.profileImage,
     });
   } catch (error) {
     log.error("Error found in getStreamToken Controller :", error);
