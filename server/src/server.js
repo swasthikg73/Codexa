@@ -8,6 +8,7 @@ import { inngest, functions } from "./lib/inngest.js";
 import { clerkMiddleware } from "@clerk/express";
 import { protectRoute } from "./middleware/protectRoute.js";
 import chatRouter from "./routes/chatRoute.js";
+import sessionRouter from "./routes/sessionRoute.js";
 
 const app = express();
 const __dirname = path.resolve();
@@ -20,22 +21,18 @@ app.use(
     credentials: true, // Credentials true meaning -> server allows a browser to have cookies on request
   }),
 );
-app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use(clerkMiddleware()); // This adds auth field to the req object:  req.auth()
+
+//Routes
+app.use("/api/inngest", serve({ client: inngest, functions }));
+app.use("/api/chat", chatRouter);
+app.use("/api/session", sessionRouter);
 
 app.get("/health", (req, res) => {
   res.status(200).json({
     message: "App is running up ",
   });
 });
-
-// app.get("/video", protectRoute, (req, res) => {
-//   res.status(200).json({
-//     message: "App is running up ",
-//   });
-// });
-
-app.use("/api/chat", chatRouter);
 
 if (ENV.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/dist")));
