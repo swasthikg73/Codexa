@@ -4,7 +4,7 @@ import Session from "../models/Session.js";
 export const createSession = async (req, res) => {
   try {
     const { problem, difficulty } = req.body;
-    const userId = req.user.id;
+    const userId = req.user._id;
     const clerkId = req.user.clerkId;
 
     if (!problem || !difficulty)
@@ -119,7 +119,7 @@ export const joinSession = async (req, res) => {
 
     //Check if session is already full - has a participant
     if (session.participant)
-      return json.status(404).json({ message: "Session is already full" });
+      return res.status(404).json({ message: "Session is already full" });
 
     session.participant = userId;
     await session.save();
@@ -130,7 +130,7 @@ export const joinSession = async (req, res) => {
     res.status(200).json({ session });
   } catch (error) {
     console.error(
-      "Error found in get getSessionById controller: ",
+      "Error found in get getSessionById controller ",
       error.message,
     );
     res.status(500).json("Internal server error");
@@ -155,10 +155,8 @@ export const endSession = async (req, res) => {
     if (session.status === "completed")
       return res.status(400).json({ message: "Session already completed" });
 
-    session.status = "Completed";
+    session.status = "completed";
     await session.save();
-
-    res.status(200).json({ message: "Session ended successfully" });
 
     //delete Stream video Call
     const call = await streamClient.video.call("default", session.callId);
