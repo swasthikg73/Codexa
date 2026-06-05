@@ -26,7 +26,7 @@ export const createSession = async (req, res) => {
     //Create stream video call
     await streamClient.video.call("default", callId).getOrCreate({
       data: {
-        created_by_id: userId,
+        created_by_id: clerkId,
         custom: { problem, difficulty, sessionId: session._id.toString() },
       },
     });
@@ -34,7 +34,7 @@ export const createSession = async (req, res) => {
     //Chat messaging
     const channel = await chatClient.channel("messaging", callId, {
       name: `${problem} Session`,
-      created_by_id: userId,
+      created_by_id: clerkId,
       members: [clerkId],
     });
 
