@@ -9,8 +9,8 @@ import {
   VideoIcon,
   ZapIcon,
 } from "lucide-react";
-
 import { Link } from "react-router";
+
 const HomePage = () => {
   return (
     <div className="bg-gradient-to-br from-base-100 via-base-200 to-base-300">
