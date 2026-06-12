@@ -107,7 +107,7 @@ const ProblemDescription = ({
           <ul className="space-y-2 text-base-content/90">
             {problem.constraints.map((con, idx) => (
               <li key={idx} className="flex gap-2">
-                <span className="text-primary">*</span>
+                <span className="text-emerald-400">*</span>
                 <code className="text-sm">{con}</code>
               </li>
             ))}

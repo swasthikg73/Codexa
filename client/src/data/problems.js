@@ -35,7 +35,6 @@ export const PROBLEMS = {
     starterCode: {
       javascript: `function twoSum(nums, target) {
   // Write your solution here
-  
 }
 
 // Test cases
@@ -150,7 +149,7 @@ class Solution {
   "valid-palindrome": {
     id: "valid-palindrome",
     title: "Valid Palindrome",
-    difficulty: "Easy",
+    difficulty: "Hard",
     category: "String • Two Pointers",
     description: {
       text: "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.",
